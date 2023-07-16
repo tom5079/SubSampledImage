@@ -1,3 +1,9 @@
+#include "ssi.h"
+
 int test() {
-    return 42;
+    if (vips_init(NULL)) {
+        vips_error_exit(NULL);
+    }
+
+    return 0;
 }

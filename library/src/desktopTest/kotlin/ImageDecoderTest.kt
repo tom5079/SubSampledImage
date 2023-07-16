@@ -8,6 +8,6 @@ class ImageDecoderTest {
     fun test() {
         val decoder = ImageDecoder()
 
-        assertEquals(42, decoder.test())
+        assertEquals(2124, decoder.test())
     }
 }
