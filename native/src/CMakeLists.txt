@@ -1,19 +1,17 @@
 cmake_minimum_required(VERSION 3.26)
 
-include(CMakePrintHelpers)
+project(ssi C)
 
-cmake_print_variables(GLIB_INCLUDE)
+find_library(VIPS NAMES vips PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
 
-find_library(VIPS NAMES vips PATHS ${THIRD_PARTY_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
-
-add_library(ssi SHARED ssi.c)
+add_library(ssi STATIC ssi.c)
 set_target_properties(ssi PROPERTIES PUBLIC_HEADER ssi.h)
 
 target_link_libraries(ssi
     ${VIPS_LIBRARIES})
 
 target_include_directories(ssi PRIVATE
-    ${THIRD_PARTY_LIB_PATH}/include
+    ${CUSTOM_LIB_PATH}/include
     ${GLIB_INCLUDE_1}
     ${GLIB_INCLUDE_2})
 

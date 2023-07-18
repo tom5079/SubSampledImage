@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.26)
 
 option (USE_SUPERBUILD "superbuild" ON)
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
-
 if (USE_SUPERBUILD)
     project(superbuild NONE)
 
-    set(THIRD_PARTY_LIB_PATH ${CMAKE_BINARY_DIR}/third-party)
+    include(CTest)
+
+    set(THIRD_PARTY_LIB_PATH ${CMAKE_BINARY_DIR}/fakeroot)
     set_directory_properties(PROPERTIES EP_PREFIX ${THIRD_PARTY_LIB_PATH})
 
     set(DEPENDENCIES)

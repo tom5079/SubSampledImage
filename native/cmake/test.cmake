@@ -1,0 +1,9 @@
+include(ExternalProject)
+
+ExternalProject_Add(ep_ssi_test
+    DOWNLOAD_COMMAND ""
+    DEPENDS ${DEPENDENCIES} ep_ssi
+    SOURCE_DIR ${PROJECT_SOURCE_DIR}/test
+    CMAKE_ARGS -DCMAKE_FIND_DEBUG_MODE=ON -DCUSTOM_LIB_PATH=${THIRD_PARTY_LIB_PATH}
+    INSTALL_COMMAND ""
+)
