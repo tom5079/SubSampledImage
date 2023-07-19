@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <vips/vips.h>
 
-int test();
+int ssi_test();

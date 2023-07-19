@@ -1,4 +1,7 @@
 #include <ssi.h>
 #include <stdio.h>
 
-int main() { return 0; }
+int main() {
+    ssi_test();
+    return 0;
+}
