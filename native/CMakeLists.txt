@@ -29,6 +29,7 @@ if (USE_SUPERBUILD)
     endif()
 
     include("cmake/glib.cmake")
+    include("cmake/mozjpeg.cmake")
     include("cmake/vips.cmake")
     include("cmake/ssi.cmake")
     include("cmake/test.cmake")
