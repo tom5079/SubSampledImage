@@ -4,6 +4,7 @@ project(ssi_test C)
 
 include(CTest)
 include(CMakePrintHelpers)
+include(CMakeFindDependencyMacro)
 
 set(CMAKE_FIND_DEBUG_MODE ON)
 
@@ -16,8 +17,13 @@ find_library(GIO_LIB NAMES gio-2.0 PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib RE
 find_library(GMODULE_LIB NAMES gmodule-2.0 PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
 find_library(GOBJECT_LIB NAMES gobject-2.0 PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
 find_library(GTHREAD_LIB NAMES gthread-2.0 PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
+find_library(EXPAT_LIB NAMES expat PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
 
-cmake_print_variables(GLIB_LIB)
+find_package(mozjpeg PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
+find_package(Tiff PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
+find_package(WebP PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
+find_package(SPNG PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
+find_package(FFTW3 PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
 
 target_link_libraries(ssi_test
     ${SSI_LIB}
@@ -27,6 +33,12 @@ target_link_libraries(ssi_test
     ${GMODULE_LIB}
     ${GOBJECT_LIB}
     ${GTHREAD_LIB}
+    ${EXPAT_LIB}
+    mozjpeg::jpeg
+    TIFF::tiff
+    spng::spng
+    FFTW3::fftw3
+    WebP::webp
     z
     m)
 
