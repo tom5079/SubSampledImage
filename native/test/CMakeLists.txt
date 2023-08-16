@@ -3,10 +3,7 @@ cmake_minimum_required(VERSION 3.26)
 project(ssi_test C)
 
 include(CTest)
-include(CMakePrintHelpers)
 include(CMakeFindDependencyMacro)
-
-set(CMAKE_FIND_DEBUG_MODE ON)
 
 add_executable(ssi_test test.c)
 
