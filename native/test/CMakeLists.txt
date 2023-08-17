@@ -45,4 +45,4 @@ target_include_directories(ssi_test PRIVATE
     ${CUSTOM_LIB_PATH}/lib/glib-2.0/include)
 
 enable_testing()
-add_test(NAME ssi_test COMMAND ssi_test)
+add_test(NAME ssi_test COMMAND ssi_test ${CMAKE_CURRENT_LIST_DIR}/wallpaper.jpg)
