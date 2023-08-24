@@ -5,8 +5,6 @@ project(ssi_test C)
 include(CTest)
 include(CMakeFindDependencyMacro)
 
-add_executable(ssi_test test.c)
-
 find_library(VIPS_LIB NAMES vips PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
 find_library(SSI_LIB NAMES ssi PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
 find_library(GLIB_LIB NAMES glib-2.0 PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
@@ -22,7 +20,7 @@ find_package(WebP PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
 find_package(SPNG PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
 find_package(FFTW3 PATHS ${CUSTOM_LIB_PATH} REQUIRED NO_DEFAULT_PATH)
 
-target_link_libraries(ssi_test
+set(TEST_LIBRARIES
     ${SSI_LIB}
     ${VIPS_LIB}
     ${GLIB_LIB}
@@ -39,10 +37,14 @@ target_link_libraries(ssi_test
     z
     m)
 
-target_include_directories(ssi_test PRIVATE
+set(TEST_INCLUDES
     ${CUSTOM_LIB_PATH}/include
     ${CUSTOM_LIB_PATH}/include/glib-2.0
     ${CUSTOM_LIB_PATH}/lib/glib-2.0/include)
 
+add_executable(ssi_test_jpg test_jpg.c)
+target_link_libraries(ssi_test_jpg ${TEST_LIBRARIES})
+target_include_directories(ssi_test_jpg PRIVATE ${TEST_INCLUDES})
+
 enable_testing()
-add_test(NAME ssi_test COMMAND ssi_test ${CMAKE_CURRENT_LIST_DIR}/image.jpg)
+add_test(NAME ssi_test_jpg COMMAND ssi_test_jpg ${CMAKE_CURRENT_LIST_DIR}/image.jpg)

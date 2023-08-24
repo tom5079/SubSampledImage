@@ -4,11 +4,11 @@ int ssi_test(const char *file) {
     VipsImage *in;
     int width;
 
-    if (vips_init("ssi_test")) {
+    if (VIPS_INIT("ssi_test")) {
         vips_error_exit(NULL);
     }
 
-    if (!(in = vips_image_new_from_file(file, NULL))) {
+    if (!(in = vips_image_new_from_file(file))) {
         vips_error_exit(NULL);
     }
 

@@ -74,5 +74,6 @@ tasks.create<Exec>("buildNative") {
 
 tasks.withType<KotlinJvmTest> {
     dependsOn("buildNative")
-    systemProperties("java.library.path" to rootDir.resolve("native/build").absolutePath)
+    systemProperties("java.library.path" to rootDir.resolve("native/build/fakeroot/lib").absolutePath)
+    environment("LD_LIBRARY_PATH", rootDir.resolve("native/build/fakeroot/lib").absolutePath)
 }
