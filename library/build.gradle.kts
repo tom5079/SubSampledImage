@@ -40,11 +40,11 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
+                implementation(compose.desktop.currentOs)
                 api(compose.preview)
             }
         }
         val desktopTest by getting {
-
         }
     }
 }

@@ -1,6 +1,7 @@
 import xyz.quaver.graphics.subsampledimage.FileImageSource
 import xyz.quaver.graphics.subsampledimage.loadImageFromFile
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 class ImageDecoderTest {
@@ -24,10 +25,16 @@ class ImageDecoderTest {
     fun `test load image`() {
         val image = loadImageFromFile(imagePath)
 
-        image.use {
-            val buffer = IntArray(100 * 100)
-
-            image.readPixels(buffer, width = 100, height = 100)
+        val imageBitmap = image.use {
+            image.readRegion(width = 500, height = 500)
         }
+
+        val buffer = IntArray(500 * 500)
+        imageBitmap.readPixels(buffer, width = 500, height = 500)
+
+        assertEquals(15321002, buffer[0])
+        assertEquals(0xeac7aa, buffer[500])
+        assertEquals(15256492, buffer[25 * 500 + 25])
+        assertEquals(15912111, buffer[234 * 500 + 57])
     }
 }

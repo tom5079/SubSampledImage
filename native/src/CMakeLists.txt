@@ -4,8 +4,7 @@ project(ssi C)
 
 include(CMakeFindDependencyMacro)
 
-add_library(ssi SHARED ssi.c jni/fileimagesource.c jni/vipsimage.c)
-set_target_properties(ssi PROPERTIES PUBLIC_HEADER ssi.h)
+add_library(ssi SHARED jni/fileimagesource.c jni/vipsimage.c)
 
 find_library(VIPS_LIB NAMES vips PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)
 find_library(GLIB_LIB NAMES glib-2.0 PATHS ${CUSTOM_LIB_PATH} PATH_SUFFIXES lib REQUIRED NO_DEFAULT_PATH)

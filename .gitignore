@@ -42,3 +42,6 @@ bin/
 .DS_Store
 
 local.properties
+
+native/build*/
+native/cmake/*.ini
