@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ "$2" != "zlib" ]; then
+    exec pkg-config "$@"
+fi
+
+echo "$@ $(pkg-config "$@")" >> /tmp/zlib.log
+
+case $1 in
+    --exists)
+        exit 0
+        ;;
+    --cflags)
+        echo "-I$TOOLCHAIN/sysroot/usr/include"
+        ;;
+    --libs)
+        echo "-L$ZLIB_PATH -lz"
+        ;;
+    --modversion)
+        echo 1.2.12
+        ;;
+    *)
+        echo "fake pkg-config for Android NDK build!"
+        ;;
+esac

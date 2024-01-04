@@ -44,4 +44,4 @@ bin/
 local.properties
 
 native/build*/
-native/cmake/*.ini
+native/cmake/cross*.txt
