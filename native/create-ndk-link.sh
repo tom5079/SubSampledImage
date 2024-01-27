@@ -30,13 +30,18 @@ LIBRARIES=(
     "libdav1d.so"
 )
 
+working_directory=$(pwd)
+
 for arch in "${!ARCHS[@]}"; do
     source_folder=$(readlink -f build-ndk-$arch/fakeroot/lib)
-    target_folder=$(readlink -f ../library/src/androidMain/jniLibs/${ARCHS[$arch]})
+    target_folder=$(readlink -f ../library/src/androidMain/jniLibs)/${ARCHS[$arch]}
 
     [ -d $target_folder ] || mkdir $target_folder
 
+    cd $target_folder
+
     for library in ${LIBRARIES[*]}; do
-        [[ -f "$target_folder/$library" ]] || ln -s $source_folder/$library $target_folder/$library
+        [[ -f "$target_folder/$library" ]] || ln -s $(realpath --relative-to="$(pwd)" "$source_folder")/$library $library
     done
+    cd $working_directory
 done
