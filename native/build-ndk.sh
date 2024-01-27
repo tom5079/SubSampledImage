@@ -6,6 +6,14 @@
 
 set -e
 
+if [ -z ${1} ]; then
+    ./$0 armv7a
+    ./$0 aarch64
+    ./$0 i686
+    ./$0 x86_64
+    exit
+fi
+
 ARCH_LOOKUP=$(cat << EOL
 {
     "armv7a": {

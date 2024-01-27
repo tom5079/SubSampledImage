@@ -33,11 +33,6 @@ kotlin {
                 api("androidx.core:core-ktx:1.9.0")
             }
         }
-        val androidTest by getting {
-            dependencies {
-                implementation("junit:junit:4.13.2")
-            }
-        }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
@@ -55,6 +50,12 @@ android {
     defaultConfig {
         minSdkVersion(24)
         targetSdkVersion(33)
+
+        ndk {
+            abiFilters.apply {
+                add("x86_64")
+            }
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -72,8 +73,25 @@ tasks.create<Exec>("buildNative") {
     commandLine("./build-native.sh")
 }
 
+tasks.create<Exec>("buildAndroidNative") {
+    group = "build"
+
+    inputs.dir("../native")
+    outputs.dir("../native/build")
+
+    workingDir = file("../native")
+    commandLine("./build-ndk.sh")
+}
+
 tasks.withType<KotlinJvmTest> {
-    dependsOn("buildNative")
     systemProperties("java.library.path" to rootDir.resolve("native/build/fakeroot/lib").absolutePath)
     environment("LD_LIBRARY_PATH", rootDir.resolve("native/build/fakeroot/lib").absolutePath)
 }
+
+afterEvaluate {
+    tasks.named("preBuild") {
+        dependsOn("buildNative")
+        dependsOn("buildAndroidNative")
+    }
+}
+

@@ -15,7 +15,7 @@ fun main() = application {
         var image: ImageBitmap? by remember { mutableStateOf(null) }
 
         LaunchedEffect(Unit) {
-            image = loadImageFromFile("native/test/image.jpg").use {
+            image = loadImageFromFile("native/test/image.avif").use {
                 it.readRegion(startX = 500, startY = 500, width = 1000, height = 1000)
             }
         }

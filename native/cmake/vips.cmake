@@ -20,6 +20,9 @@ ExternalProject_Add(ep_vips
             -Djpeg-xl=disabled
             -Dlcms=disabled
             -Dexif=disabled
+            -Dheif=enabled
+            -Dheif-module=disabled
+            -Dmodules=disabled
             -Dopenjpeg=disabled
             -Dorc=disabled
             -Dpng=disabled
