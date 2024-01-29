@@ -2,6 +2,8 @@
 #include <stdint.h>
 #include <vips/vips.h>
 
+#include "arch.h"
+
 JNIEXPORT jint JNICALL
 Java_xyz_quaver_graphics_subsampledimage_VipsImageImpl_readPixels(
     JNIEnv *env, jobject this, jbyteArray buffer, jint startX, jint startY,
@@ -116,13 +118,7 @@ Java_xyz_quaver_graphics_subsampledimage_VipsImageImpl_load(JNIEnv *env,
         image = tmp;
     }
 
-    jclass longClass = (*env)->FindClass(env, "Ljava/lang/Long;");
-    jmethodID longConstructor =
-        (*env)->GetMethodID(env, longClass, "<init>", "(J)V");
-
-    jobject longObject =
-        (*env)->NewObject(env, longClass, longConstructor, image);
-    return longObject;
+    return newLongObject(env, (jlong) image);
 }
 
 JNIEXPORT void JNICALL
@@ -139,7 +135,7 @@ Java_xyz_quaver_graphics_subsampledimage_VipsImageImpl_close(JNIEnv *env,
 
     jfieldID vipsImageField =
         (*env)->GetFieldID(env, class, "_vipsImage", "Ljava/lang/Long;");
-    (*env)->SetObjectField(env, this, vipsImageField, 0L);
+    (*env)->SetObjectField(env, this, vipsImageField, NULL);
 
     return;
 }
